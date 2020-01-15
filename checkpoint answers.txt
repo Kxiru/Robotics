@@ -1,4 +1,16 @@
-1. Yes, we have a WhatsApp group chat and we met up Wednesday to work on getting the checkpoint done for the Friday lab.
+1. Has your group got a way of communicating? Have you arrange to meet up between labs?
+2. What is leJOS?
+3. What does Delay.msDelay(1000) do?
+4. If you disconnect the motors from the robot ports on the brick and execute the program
+GoCar, what happens (or does not happen)?
+5. How would you modify the GoCar program to make your robot go around a circle?
+6. What problem does motor synchronisation solve?
+7. Why did you see nothing when you ran the HelloWorld program?
+8. Can you please explain . . . in the code that you have written?
+
+
+
+1. Yes, we have a WhatsApp group chat and we met up on Wednesday at 2pm in the Beford Labs to work on getting the checkpoint done for the Friday lab.
 2. LeJOS is an operating system replacement for the EV3 bricks which allows us to program the robots in Java.
 3. It sends the parameter of 1000 milliseconds to the Delay handler which instructs it to wait 1 second (1000ms) before returning a value, effectively stalling the robot for 1 second.
 4. The robot does not move as the EV3 brick has no way of communicating with them and cannot send a voltage.
