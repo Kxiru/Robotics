@@ -1,0 +1,8 @@
+1. Yes, we have a WhatsApp group chat and we met up Wednesday to work on getting the checkpoint done for the Friday lab.
+2. LeJOS is an operating system replacement for the EV3 bricks which allows us to program the robots in Java.
+3. It sends the parameter of 1000 milliseconds to the Delay handler which instructs it to wait 1 second (1000ms) before returning a value, effectively stalling the robot for 1 second.
+4. The robot does not move as the EV3 brick has no way of communicating with them and cannot send a voltage.
+5. To make the robot go in a circle, I would firstly remove the synchronisation from the motors. Then, I would set the direction of one motor to be forward and the other motor to be backwards and proceed to activate them both. Due to the opposite directions of the motors it will cause the robot to spin in a circle.
+6. It means that when you activate both motors in the program, the motor you activate first in the line of code will not be processed before the second motor is activated, which would eliminate that short delay and mean the robot travels straight rather than askew.
+7. When I first pasted the code, it required the imports so nothing worked if it was run anyway.
+8. Yes.
