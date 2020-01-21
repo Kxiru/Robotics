@@ -1,0 +1,28 @@
+1. Yes, as mentioned before we have a WhatsApp group chat and our own github repository which is really handy as it
+allows us all to code simultaneously. As for meetups, we usually meet up on Wednesday but this week we will be meeting
+in the Bedford labs at 10am on Thursday.
+
+2. Firstly, I would initialise the motors. This means creating the objects, setting their speed, synchronising them
+and then finally instructing them to move forward using the synchronisation. As far as the turning goes, as there
+is no specific angle specified I'm just going to assume it means rotate a random number of degrees in a circle? To
+do that, I would stop the motor synchronisation, initialise a for loop containing 10 iterations each instructing
+one of the motors (either the right or the left) to start, delay for 1 second to allow it to spin for a bit, then
+stop the motor, delay for another second (or less, just adding a wait) and then close the loop. This will allow the
+robot to start, wait, stop, wait 10 times. After this I'll close the motors for memory leaks (lol).
+
+3. Oh, this one is easy. Firstly, I would access my HOME PAGE as Dave in all his mighty wisdom has instructed me to
+set it as my home page, so I must obviously carry out his will.  Once I'm on my homepage, it's literally visible
+straight away. On the bottom left hand navigation column titled "All Classes" you can literally see
+"BaseRegulatedMotor". Click that, and all the documentation is there. Pretty simple. Scroll down in that same column
+and there's "EV3LargeRegulatedMotor" and the other motors. Handy.
+
+4. This one's actually pretty useful. It basically means it will instantly continue running the next lines of code
+in your program without waiting for anything to be returned, effectively reducing any delay in the code. It's
+pretty difficult to describe this in a lot of detail, but effectively every line of code you execute on LeJOS will
+create a delay as it waits for a return to be made. That's why without syncrhonisation, even if the line of code
+starting another motor is immediately after the first it starts just a few milliseconds after. If the
+immediateReturn parameter is true it will not wait for the motor to actually stop.
+
+5. Will show you the code.
+
+6. Will show you the code.
