@@ -1,0 +1,32 @@
+1. We calibrated the sound sensor whilst we were in the lab so there was admittedly quite a lot of background
+ambient noise, so we likely have a higher threshold than some others. The way we calibrated it was fairly simple,
+just created a simple program which contains a while loop which takes a measurement of the noise the motor can hear
+every couple milliseconds and displays it on the LCD screen. We found that clapping a reasonable distance away from
+the robot (let's say about 30-50cm), the threshold was usually between 0.6-0.75decibels. Anything less than 0.6 had
+a pretty decent chance of setting off the motors just with ambient noise itself and anything more than 0.75 and the
+clap wasn't being consistently heard.
+
+2. The colour sensor was a bit of a weird one. When we placed the colour sensor over the black lego brick (to try
+and simulate the robot being on a black line) and after several measurements we pretty much ended up with 0.0
+every single time holding the robot on that line, which is almost quite impressive. That means that it was pretty
+much pitch black. When we let the sensor sit on the white desk and look at the white, the reflected light was
+around 0.7-0.75 (usually 0.74). Now, this is quite an obvious significant difference, so in reality we didn't
+end up using 0.0 for the black and 0.75 for the white, instead we used much safer code as that if it was below 0.5
+it can be considered on black and above 0.5 it can be considered white. This proved to be far more robust and we
+didn't encounter any problems with these numbers, so the calibration here proved to be slightly less essential as
+the difference in the colours was so different and unlike for clapclapcar we didn't have to worry about background
+noise.
+
+3.
+(THIS QUESTION VARIES FOR WHOEVER IS ANSWERING THE QUESTIONS, JUST TELL THE HELPER HOW YOU HELPED)
+For me, personally, I didn't actually write the code for the SimpleChap but was still involved. As I wrote the code
+for the ClapClapCar, and the SimpleChap program required claps to get going, Keiru (who wrote the code) actually
+used the code from my ClapClapCar program (and the values that I got from the calibration I did before I wrote the
+program). All of this was massively useful for the group. After that, my involvement was watching Keiru code the
+rest of the program (for balance reasons, I had already done one of the programs) and helping out wherever I could
+whenever she ran into problems that I could see the solutions for. As for looking up, we constantly used the online
+documentation to learn more about the filters to solve the double-clap problem. As for testing, we tested the robot
+how we always tested the robot. Put it on the floor and all watch, hoping that the robot does what we hoped it to
+do!
+
+4. The code for this is on the repository called "Ultrasonic Calibration" :)
