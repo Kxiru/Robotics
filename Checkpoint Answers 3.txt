@@ -29,4 +29,6 @@ documentation to learn more about the filters to solve the double-clap problem. 
 how we always tested the robot. Put it on the floor and all watch, hoping that the robot does what we hoped it to
 do!
 
+Q3) Keiru's perspective: Wanting to challenge myself, I also did SimpleChap independently from the group outside of lab sessions. I tested on robots with different parameters and was able to make a semi working prototype. When I returned to the lab, I was able to work through the parts of the code that didnt work with my team members. We identified that I had missed a crucial line of code and also was helped to make my code more readable and modular by implementing methods. By the end of the session, the robot was performing as specified.
+
 4. The code for this is on the repository called "Ultrasonic Calibration" :)
