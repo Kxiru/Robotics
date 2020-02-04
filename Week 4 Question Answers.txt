@@ -1,0 +1,35 @@
+Assessment
+Its not enough to watch someone else code.
+Teach your own fingers to program!
+You can be assessed individually or in pairs.
+Your code will be looked at and these questions will be asked during your assessment.
+Prepare your answers. Other questions may also be asked.
+
+
+
+
+
+1. What sort of robots can be driven using a MovePilot?
+Robots with two separately driven wheels are optimum for using a MovePilot. It works best for robots that have a chassis, i.e
+
+
+2. Why does a MovePilot need to know the wheel diameter and the axle length?
+MovePilot allows a robot to move an exact distance rather than having to send messages to Motor objects to try and make the robot move exactly, however, in order to do this, the exact measurements of the wheel diameter and axle length must be passed to the Pilot.
+- The diameter is paramount in calculating the circumference of a wheel, or in other words, how far the wheel will travel with one revolution.
+- The axle is a necessary measurement in making the robot rotate/turn accurately. This is because, the longer the axle, the more revolutions of a wheel it would take for the robot to turn 90 degrees, alone. I found it helpful to consider the axle as the radius of a circle, given a wheel of static size.
+- For an axle of length x, we could calculate the distance it would take for a 90 degree turn by using (x*PI)/4 which gives us a quarter of the circle circumference. The above distance can be divided by the circumference of the wheel to find the number of revolutions/wheel turns needed to make the robot turn 90 degrees.
+
+
+3. Why are more waypoints better if you have an accurate pose provider?
+The pose provider allows the robot to keep track of it's (x,y) location whilst waypoints are used to plot a path for the robot to follow. An accurate pose provider will allow the waypoint co-ordinates to be exact, whilst if using an inaccurate path provider, a robot is susceptible to motor variation through floor surface, tyres, gears, etc and would not accurately follow waypoints.
+Additionally, the Navigator(s) rely on querying Pose Providers to know exactly where the robot is at intervals whence it updates it's position. Thus the more waypoints one has, the better grasp of it's environment a robot has.
+
+
+4. Starting with a new class, write a program using either a Pilot or a Navigator to make the
+robot travel along a straight line and back.
+This was executed with ease.
+
+
+
+Bring the robot programmed with this code to your assessment. If the assessors are unclear
+as to whether you yourself wrote the program they will fail your assessment.
