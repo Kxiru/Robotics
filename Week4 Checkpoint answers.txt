@@ -10,6 +10,7 @@ Prepare your answers. Other questions may also be asked.
 
 
 1. What sort of robots can be driven using a MovePilot?
+Any robot with two or more wheels is appropriate to be driven with a MovePilot. Using a MovePilot automates a lot of the quite tedious processes of running motors on robots, such as the need for synchronisation and figuring out perfect rotation as the MovePilot takes the dimensions of the robot such as the wheel diameter and axle length and does many of the calculations for you, for example we used it to do perfect 90 degree rotations at any speed we set the robot to, something that we would have had to do calculation for how long to rotate the robot for as the wheels were being driven at a different speed. The MovePilot eliminated the need for this and handled things effectively.
 Robots with two separately driven wheels are optimum for using a MovePilot. It works best for robots that have a chassis, i.e
 
 
@@ -28,7 +29,7 @@ Additionally, the Navigator(s) rely on querying Pose Providers to know exactly w
 4. Starting with a new class, write a program using either a Pilot or a Navigator to make the
 robot travel along a straight line and back.
 This was executed with ease.
-
+Code on the repo.
 
 
 Bring the robot programmed with this code to your assessment. If the assessors are unclear
