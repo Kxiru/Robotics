@@ -9,25 +9,33 @@ import java.util.Scanner;
 
 import java.util.Random;
 
+// block class
 class Block {
     private String name;
     private double length, width;
 
+    // constructor for block
     public Block(String name, double length, double width) {
         this.name = name;
         this.length = length;
         this.width = width;
     }
-
+    
+    // getter methods for block
     public String getName() { return this.name; }
     public double getLength() { return this.length; }
     public double getWidth() { return this.width; }
 }
 
+/* The final javaFX implementation to visualise the robot map was to present it as a chart
+so that the coordinates can be identified; where the blocks are added into the chart. This is
+useful for the navigation of the robot (to realise where it is on the map) as well as recognition
+of the exact locations of the obstacles on the map*/
+
 public class BuildMap extends Application {
 
     @Override
-
+    
     public void start(Stage primaryStage) {
         try {
             final double offset = 50;
@@ -56,11 +64,14 @@ public class BuildMap extends Application {
             Block natalie = new Block("Natalie", 31, 31); 
             Block keisha = new Block("Keisha", 49, 31); 
             Block jamal = new Block("Jamal", 63, 31); 
-
+            
+            /* array of the instantiated blocks based on the actual information of the blocks that will be used
+            for QR code reading */
             Block[] blocks = new Block[] {bill, becky, daquan, natalie, keisha, jamal};
             XYChart.Series[] boundaries = new XYChart.Series[6];
             
-
+            /* loop to randomly assign the location of the blocks on the map, by calling createNewBoundary method
+            and passing itself, the width and height of the block as parameters */
             System.out.println("Random placement of blocks...");
             for (int i = 0; i < blocks.length; i++) {
                 boundaries[i] = createNewBoundary(blocks[i], width, height);
@@ -90,10 +101,12 @@ public class BuildMap extends Application {
     }
 
     public static XYChart.Series createNewBoundary(Block block, double mapWidth, double mapHeight) {
+        // retrieve the width and the length of the block that was instantiated with this information
         double width = block.getWidth();
         double height = block.getLength();
         //Scanner setter = new Scanner(System.in);
         System.out.println("-- Create boundary for " + block.getName() + " --");
+        
         /*System.out.println("Set X: ");
         double startX = setter.nextDouble();
         System.out.println("Set Y: ");
@@ -104,18 +117,23 @@ public class BuildMap extends Application {
         double startY = 0;
 
         // ensure all points of the block are within the map
+        // CONDITION: re-iterate the loop until all four points of the block lie inside the map
         while (!isInsideMap) {
+            // randomly assigns the X coordinate of the top-left corner of the block
             Random Wr = new Random();
             startX = 0 + (mapWidth - 0) * Wr.nextDouble();
-
+        
+            // randomly assigns the Y coordinate of the top-left corner of the block
             Random Hr = new Random();
             startY = 0 + (mapHeight - 0) * Hr.nextDouble();
-
+            
+            // logical evaluation of if all four points of the block lie inside the map
             isInsideMap = ( (startX >= 0 && startX <= mapWidth) && (startY >= 0 && startY <= mapHeight)
             && (startX + width >= 0 && startX + width <= mapWidth)
             && (startY - height >= 0 && startY - height <= mapHeight));
         }
-
+        
+        // create series for the new block and assign a name to it.
         XYChart.Series newBoundary = new XYChart.Series();
         newBoundary.setName(block.getName());
 
@@ -129,7 +147,9 @@ public class BuildMap extends Application {
         return newBoundary;
 
     }
-
+    
+    /* method which asks for user's input (if the code prompts the user to set the width and height of the map instead of
+    the dimensions being pre-set */
     public static double getDimension(String prompt) {
         double dimension;
         Scanner in = new Scanner(System.in);
@@ -140,6 +160,7 @@ public class BuildMap extends Application {
     }
     
     public static void main (String[] args) {
+        // lauch the application
         launch(args);
     }
 }
