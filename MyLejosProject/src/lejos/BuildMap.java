@@ -6,25 +6,28 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.LineChart;
 import javafx.stage.Stage;
 import java.util.Scanner;
-
 import java.util.Random;
 
 // block class
 class Block {
     private String name;
-    private double length, width;
+    private double width, height, startX, startY;
 
     // constructor for block
-    public Block(String name, double length, double width) {
+    public Block(String name, double height, double width, double startX, double startY) {
         this.name = name;
-        this.length = length;
         this.width = width;
+        this.height = height;
+        this.startX = startX;
+        this.startY = startY;
     }
     
     // getter methods for block
     public String getName() { return this.name; }
-    public double getLength() { return this.length; }
     public double getWidth() { return this.width; }
+    public double getHeight() { return this.height; }
+    public double getStartX() { return this.startX; }
+    public double getStartY() { return this.startY; }
 }
 
 /* The final javaFX implementation to visualise the robot map was to present it as a chart
@@ -39,16 +42,14 @@ public class BuildMap extends Application {
     public void start(Stage primaryStage) {
         try {
             final double offset = 50;
-            //double width = getDimension("Width: ");
-            //double height = getDimension("Height: ");
-            double width = 2000;
-            double height = 2000;
+            double mapWidth = 1800;
+            double mapHeight = 1800;
 
             primaryStage.setTitle("ROBOT MAP");
             
             // axis required for line chart
-            final NumberAxis xAxis = new NumberAxis(0, width, 10);
-            final NumberAxis yAxis = new NumberAxis(0, height, 10);
+            final NumberAxis xAxis = new NumberAxis(0, mapWidth, 10);
+            final NumberAxis yAxis = new NumberAxis(0, mapHeight, 10);
             // set labels of axis
             xAxis.setLabel("X Distance (mm)");
             yAxis.setLabel("Y Distance (mm)");
@@ -56,31 +57,22 @@ public class BuildMap extends Application {
             final LineChart<Number, Number> chart = new LineChart <Number,Number>(xAxis, yAxis);
             // set title of chart
             chart.setTitle("ROBOT MAP");
-
-            // create boundary blocks
-            Block bill = new Block("Bill", 71, 32);
-            Block becky =  new Block("Becky", 95, 63);
-            Block daquan =  new Block("Daquan", 79, 63);
-            Block natalie = new Block("Natalie", 31, 31); 
-            Block keisha = new Block("Keisha", 49, 31); 
-            Block jamal = new Block("Jamal", 63, 31); 
             
-            /* array of the instantiated blocks based on the actual information of the blocks that will be used
+            /* array of blocks based on the actual information of the blocks that will be used
             for QR code reading */
-            Block[] blocks = new Block[] {bill, becky, daquan, natalie, keisha, jamal};
+            Block[] blocksArray = new Block[6];
             XYChart.Series[] boundaries = new XYChart.Series[6];
             
-            /* loop to randomly assign the location of the blocks on the map, by calling createNewBoundary method
-            and passing itself, the width and height of the block as parameters */
-            System.out.println("Random placement of blocks...");
-            for (int i = 0; i < blocks.length; i++) {
-                boundaries[i] = createNewBoundary(blocks[i], width, height);
-
+            /* loop to assign the name, dimensions, location of the blocks on the map, by calling createNewBoundary method
+            and passing the map width, map height, the blocks array and its index as the parameters */
+            System.out.println("------ Generation of boundaries for blocks");
+            for (int i = 0; i < blocksArray.length; i++) {
+                boundaries[i] = createNewBoundary(mapWidth, mapHeight, blocksArray, i);
             }
             
             // set no sorting policy (unordered by X or Y axis) to allow the line graph to be presented as a free polygon
             chart.setAxisSortingPolicy(LineChart.SortingPolicy.NONE);
-            Scene scene = new Scene(chart, width, height);
+            Scene scene = new Scene(chart, mapWidth, mapHeight);
             // add both series to the line chart
 
             for (int i = 0; i < boundaries.length; i++) {
@@ -100,63 +92,70 @@ public class BuildMap extends Application {
         }
     }
 
-    public static XYChart.Series createNewBoundary(Block block, double mapWidth, double mapHeight) {
-        // retrieve the width and the length of the block that was instantiated with this information
-        double width = block.getWidth();
-        double height = block.getLength();
-        //Scanner setter = new Scanner(System.in);
-        System.out.println("-- Create boundary for " + block.getName() + " --");
-        
-        /*System.out.println("Set X: ");
-        double startX = setter.nextDouble();
-        System.out.println("Set Y: ");
-        double startY = setter.nextDouble();*/
-
-        boolean isInsideMap = false;
+    public static XYChart.Series createNewBoundary(double mapWidth, double mapHeight, Block[] blocksArray, int indexNumber) {
+        // input the name, dimensions and location of the block that will be instantiated 
+        String name = "";
+        double width = 0;
+        double height = 0;
         double startX = 0;
         double startY = 0;
+        Scanner setter = new Scanner(System.in);
+        Scanner nameSetter = new Scanner(System.in);
+
+        boolean isInsideMap = false;
+        XYChart.Series newBoundary = null;
 
         // ensure all points of the block are within the map
         // CONDITION: re-iterate the loop until all four points of the block lie inside the map
+        System.out.println("------ Creating boundary for Block " + (indexNumber + 1));
         while (!isInsideMap) {
-            // randomly assigns the X coordinate of the top-left corner of the block
-            Random Wr = new Random();
-            startX = 0 + (mapWidth - 0) * Wr.nextDouble();
-        
-            // randomly assigns the Y coordinate of the top-left corner of the block
-            Random Hr = new Random();
-            startY = 0 + (mapHeight - 0) * Hr.nextDouble();
+            // assigns the name of the block
+            System.out.println("Set Name of block: ");
+            name = nameSetter.nextLine();
+            // assigns the width of the block; magnitude thus must be positive
+            System.out.println("Set Width of block (mm): ");
+            width = Math.abs(setter.nextDouble());
+            // assigns the height of the block; magnitude thus must be positive
+            System.out.println("Set Height of block (mm): ");
+            height = Math.abs(setter.nextDouble());
+            // assigns the X coordinate of the top-left corner of the block
+            System.out.println("Set X of top-left corner of block: ");
+            startX = setter.nextDouble();
+            // assigns the Y coordinate of the top-left corner of the block
+            System.out.println("Set Y of top-left corner of block: ");
+            startY = setter.nextDouble();
             
             // logical evaluation of if all four points of the block lie inside the map
             isInsideMap = ( (startX >= 0 && startX <= mapWidth) && (startY >= 0 && startY <= mapHeight)
             && (startX + width >= 0 && startX + width <= mapWidth)
             && (startY - height >= 0 && startY - height <= mapHeight));
-        }
-        
-        // create series for the new block and assign a name to it.
-        XYChart.Series newBoundary = new XYChart.Series();
-        newBoundary.setName(block.getName());
 
-        // plot points of recentangle onto graph
-        newBoundary.getData().add(new XYChart.Data(startX, startY));
-        newBoundary.getData().add(new XYChart.Data(startX + width, startY));
-        newBoundary.getData().add(new XYChart.Data(startX + width, startY - height));
-        newBoundary.getData().add(new XYChart.Data(startX, startY - height));
-        newBoundary.getData().add(new XYChart.Data(startX, startY));
+            if (isInsideMap) {
+                Block newBlock = new Block(name, width, height, startX, startY);
+                blocksArray[indexNumber]= newBlock;
+                System.out.println("--- Block created");
+                System.out.println("Name: " + newBlock.getName());
+                System.out.println("Width (mm): " + newBlock.getWidth());
+                System.out.println("Height (mm): " + newBlock.getHeight());
+                System.out.println("X co-ordinate: " + newBlock.getStartX());
+                System.out.println("Y co-ordinate: " + newBlock.getStartY());
+
+                // create series for the new block and assign a name to it.
+                newBoundary = new XYChart.Series();
+                newBoundary.setName(newBlock.getName());
+
+                // plot points of recentangle onto graph
+                newBoundary.getData().add(new XYChart.Data(startX, startY));
+                newBoundary.getData().add(new XYChart.Data(startX + width, startY));
+                newBoundary.getData().add(new XYChart.Data(startX + width, startY - height));
+                newBoundary.getData().add(new XYChart.Data(startX, startY - height));
+                newBoundary.getData().add(new XYChart.Data(startX, startY));
+            } else {
+                System.out.println("---INVALID: Block lies outside of map");
+            }
+        }
 
         return newBoundary;
-
-    }
-    
-    /* method which asks for user's input (if the code prompts the user to set the width and height of the map instead of
-    the dimensions being pre-set */
-    public static double getDimension(String prompt) {
-        double dimension;
-        Scanner in = new Scanner(System.in);
-
-        System.out.println(prompt);
-        dimension = in.nextDouble();
-        return dimension;
     }
     
     public static void main (String[] args) {
